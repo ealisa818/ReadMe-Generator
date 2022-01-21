@@ -1,73 +1,74 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatorMarkdown = require("./generateMarkdown");
+// const generatorMarkdown = require("./generateMarkdown");
+// const { generateKey } = require('crypto');
+const generateMarkdown = require('./generateMarkdown');
 
 // TODO: Create an array of questions for user input
-const questions = [
+const promptUser = [
     {
         type: "input",
-        name: "Username",
+        name: "title",
+        message: "What is the title of your project?"
+    },
+    {
+        type: "input",
+        name: "github",
         message: "Please enter your GitHub username: ",
     },
     {
         type: "input",
-        name: "Email",
+        name: "email",
         message: "Please enter your email address: ",
     },
     {
         type: "input",
-        name: "Description1",
+        name: "description",
         message: "What was your motivation? Why did you build this project?",
     },
-    {
+        {
         type: "input",
-        name: "Description2",
-        message: "What problem does it solve?",
-    },
-    {
-        type: "input",
-        name: "Description3",
-        message: "What did you learn?",
-    },
-    {
-        type: "input",
-        name: "Installation",
+        name: "installation",
         message: "what are the steps required to install your project?",
     },
     {
         type: "input",
-        name: "Usage",
+        name: "usage",
         message: "Provide instructions for usage:",
     },
     {
         type: "input",
-        name: "Contributors",
+        name: "contributors",
         message: "Please list any contributors: ",
     },
     {
         type: "input",
-        name: "License",
+        name: "license",
         message: "Please provide any licenses: ",
-    },
-    {
-        type: "input",
-        name: "features",
-        message: "Please list any features: ",
     },
     {
         type: "input",
         name: "tests",
         message: "Please explain how to run any tests: ",
-    },
-    
+    },  
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+// function writeToFile(fileName, data) {}
 
+function writeToFile(filename, data) {
+    fs.writeFile(filename, (data), (err) =>
+      err ? console.error(err) : console.log('README created!')
+    );
+ }
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    inquirer.prompt(promptUser).then((data) => {
+        writeToFile("generateMarkdown.md", generateMarkdown(data))
+    }
+    )
+}
 
 // Function call to initialize app
 init();
